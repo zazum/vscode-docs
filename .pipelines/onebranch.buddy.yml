@@ -1,6 +1,7 @@
 trigger:
-  branch:
-    - pipeline
+  branches:
+    include:
+      - pipeline
 pr: none
 
 variables:
