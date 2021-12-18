@@ -7,8 +7,9 @@ variables:
 
 resources:
   repositories:
-    - repository: self
+    - repository: docs
       type: github
+      name: microsoft/vscode-docs
       ref: pipeline
       trigger:
       - pipeline
@@ -25,32 +26,17 @@ stages:
       pool:
         vmImage: windows-latest
       steps:
-        - checkout: self
-          clean: true
-          path: vscode-website
-          persistCredentials: true
-          fetchDepth: 1
-          condition: eq(variables['Build.Repository.Name'], 'microsoft/vscode-website')
         - checkout: website
           clean: true
           path: vscode-website
           persistCredentials: true
           fetchDepth: 1
-          condition: eq(variables['Build.Repository.Name'], 'microsoft/vscode-docs')
-        - checkout: self
-          clean: true
-          path: vscode-website/vscode-docs
-          persistCredentials: true
-          fetchDepth: 1
-          lfs: true
-          condition: eq(variables['Build.Repository.Name'], 'microsoft/vscode-docs')
         - checkout: docs
           clean: true
           path: vscode-website/vscode-docs
           persistCredentials: true
           fetchDepth: 1
           lfs: true
-          condition: eq(variables['Build.Repository.Name'], 'microsoft/vscode-website')
         - task: NodeTool@0
           displayName: Use Node 12.18.0
           inputs:
