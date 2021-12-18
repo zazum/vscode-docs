@@ -1,0 +1,58 @@
+trigger: none
+pr: none
+
+variables:
+  skipNugetSecurityAnalysis: true
+  skipComponentGovernanceDetection: true
+
+resources:
+  repositories:
+    - repository: self
+      type: github
+      ref: pipeline
+      trigger:
+      - pipeline
+    - repository: website
+      type: github
+      endpoint: Monaco
+      name: microsoft/vscode-website
+      ref: main
+
+stages:
+- stage: testCheckout
+  jobs:
+    - job: testCheckout
+      pool:
+        vmImage: windows-latest
+      steps:
+        - checkout: self
+          clean: true
+          path: vscode-website
+          persistCredentials: true
+          fetchDepth: 1
+          condition: eq(variables['Build.Repository.Name'], 'microsoft/vscode-website')
+        - checkout: website
+          clean: true
+          path: vscode-website
+          persistCredentials: true
+          fetchDepth: 1
+          condition: eq(variables['Build.Repository.Name'], 'microsoft/vscode-docs')
+        - checkout: self
+          clean: true
+          path: vscode-website/vscode-docs
+          persistCredentials: true
+          fetchDepth: 1
+          lfs: true
+          condition: eq(variables['Build.Repository.Name'], 'microsoft/vscode-docs')
+        - checkout: docs
+          clean: true
+          path: vscode-website/vscode-docs
+          persistCredentials: true
+          fetchDepth: 1
+          lfs: true
+          condition: eq(variables['Build.Repository.Name'], 'microsoft/vscode-website')
+        - task: NodeTool@0
+          displayName: Use Node 12.18.0
+          inputs:
+            versionSpec: 12.18.0
+            checkLatest: true
