@@ -261,6 +261,10 @@ The Python extension maps mypy message categories to VS Code categories through 
 | error | mypyCategorySeverity.error | Error |
 | note | mypyCategorySeverity.note | Information |
 
+## Adjust linter output colors
+
+You can customize the output colors of warning and error lines in the editor with minor adjustments to the `settings.json` file.
+
 ## Troubleshooting linting
 
 | Error message | Cause | Solution |
