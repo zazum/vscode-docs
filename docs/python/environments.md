@@ -10,15 +10,7 @@ MetaSocialImage: images/tutorial/social.png
 ---
 # Using Python environments in VS Code
 
-This article discusses the helpful features provided by the VS Code Python extension for working with Python environments. An "environment" in Python is the context in which a Python program runs and consists of an interpreter and any number of installed packages. After you finish this article, you'll have a good understanding of:
-
-- [General environment concepts](#global-and-virtual-environments)
-- [How to select an environment](#select-and-activate-an-environment)
-- How to create a [virtual](#create-a-virtual-environment) or [conda](#create-a-conda-environment) environment
-- How to [select and activate](#select-and-activate-an-environment) a virtual environment
-- How to work with [Environments and Terminal windows](#environments-and-terminal-windows)
-- [Where the Python extension looks for environments](#where-the-extension-looks-for-environments)
-- Environment variables and [environment variable definitions files (.env)](#environment-variable-definitions-file)
+This article discusses the helpful features provided by the VS Code Python extension for working with Python environments. An "environment" in Python is the context in which a Python program runs and consists of an interpreter and any number of installed packages.
 
 While this article provides some information about Python environments and their concepts, it is primarily for understanding how to work with them within VS Code. If you're new to working with Python environments, you can learn more at [Virtual Environments and Packages (Python.org)](https://docs.python.org/3/tutorial/venv.html) and [Installing Python Modules (Python.org)](https://docs.python.org/3/installing/index.html#installing-index).
 
@@ -26,9 +18,13 @@ While this article provides some information about Python environments and their
 
 ## Global and virtual environments
 
-By default, any Python interpreter that you've installed runs in its own **global environment**, which is not specific to any one project. For example, if you just run `python` (Windows) or `python3` (macOS/Linux) at a new command prompt, you're running in that interpreter's global environment. Accordingly, any packages that you install or uninstall affect the global environment and all programs that you run within that context.
+### Global environments
 
-Although working in the global environment is an easy way to get started, that environment will, over time, become cluttered with many different packages that you've installed for different projects. Such clutter makes it difficult to thoroughly test an application against a specific set of packages with known versions, which is exactly the kind of environment you'd set up on a build server or web server.
+By default, any Python interpreter installed runs in its own **global environment**. They aren't specific to any one project. For example, if you just run `python` (Windows) or `python3` (macOS/Linux) at a new command prompt, you're running in that interpreter's global environment. Any packages that you install or uninstall affect the global environment and all programs that you run within it.
+
+Working in the global environment is an easy way to get started. In time, that environment will become crowded with the different packages that you've installed for different projects. Such clutter makes it difficult to thoroughly test an application against a specific set of packages with known versions.
+
+### Virtual environments
 
 For this reason, developers often create a **virtual environment** for a project. A virtual environment is a subfolder in a project that contains a copy of a specific interpreter. When you activate the virtual environment, any packages you install are installed only in that environment's subfolder. When you then run a Python program within that environment, you know that it's running against only those specific packages. Be aware that if you're not using a **virtual environment**, and you have multiple versions of Python installed and set in the `path` environment variable, you might need to specify the Python interpreter to use in the terminal for installing packages to the global environment.
 
