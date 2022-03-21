@@ -30,6 +30,16 @@ For this reason, developers often create a **virtual environment** for a project
 
 > **Note**: While it's possible to open a virtual environment folder as a workspace, doing so is not recommended and might cause issues with using the Python extension.
 
+### Python environment tools
+Once you activate your virtual environment, you’ll need to identify how to manage it and its accompanying packages. The following table explains how to use these Python environments:
+
+|   Tool         | Definition and Purpose    |
+|   ---          | --- |
+|   pip          | Manages packages and is installed with Python by default.      |
+|   virtualenv   | Manages virtual environments and is installed with Python by default.   |
+|   conda        | Installed with **Anaconda** and **Miniconda**. It can be used to manage both packages and virtual environments. Generally used for data science projects.   |
+
+
 ### Conda environments
 
 A conda environment is a Python environment that's managed using the `conda` package manager (see [Getting started with conda](https://conda.io/projects/conda/en/latest/user-guide/getting-started.html) (conda.io)). Conda works well to create environments with interrelated dependencies as well as binary packages. Unlike virtual environments, which are scoped to a project, conda environments are available globally on any given computer. This availability makes it easy to configure several distinct conda environments and then choose the appropriate one for any given project.
