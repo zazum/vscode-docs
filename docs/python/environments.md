@@ -91,19 +91,17 @@ This will add the path to the Python interpreter from the new virtual environmen
 
 ### Create a conda environment
 
-The Python extension automatically detects existing conda environments provided that the environment contains a Python interpreter. For example, the following command creates a conda environment with the Python 3.4 interpreter and several libraries, which VS Code then shows in the list of available interpreters:
+The Python extension automatically detects existing conda environments provided that the environment contains a Python interpreter. For example, the following command creates a conda environment with the Python 3.9 interpreter and several libraries, which VS Code then shows in the list of available interpreters:
 
 ```bash
-conda create -n env-01 python=3.4 scipy=0.15.0 astroid babel
+conda create -n env-01 python=3.9 scipy=0.15.0 astroid babel
 ```
-
-In contrast, if you fail to specify an interpreter, as with `conda create --name env-00`, the environment won't appear in the list.
 
 For more information on the conda command line, see [Conda environments](https://conda.io/docs/user-guide/tasks/manage-environments.html) (conda.io).
 
 Additional notes:
 
-- If you create a new conda environment while VS Code is running, use the **Reload Window** command to refresh the environment list shown with **Python: Select Interpreter**; otherwise you may not see the environment there. It might take a short time to appear; if you don't see it at first, wait 15 seconds then try using the command again.
+- If you create a new conda environment while VS Code is running, use the **Reload Window** command to refresh the environment list shown with **Python: Select Interpreter** and select the refresh icon in the top right corner.
 
 - To ensure the environment is set up well from a shell perspective, one option is to use an Anaconda prompt with the activated environment to launch VS Code using the `code .` command. At that point you just need to select the interpreter using the Command Palette or by clicking on the status bar.
 
