@@ -32,7 +32,7 @@ The location of the `.git` folder is important, since we will need to ensure the
 Next, assume the `docker-compose.yml` in the root is as follows:
 
 ```yaml
-version: '3'
+version: '3.8'
 services:
   container-1:
     image: ubuntu:bionic
@@ -40,8 +40,8 @@ services:
       # Mount the root folder that contains .git
       - .:/workspace:cached
     command: /bin/sh -c "while sleep 1000; do :; done"
-    links:
-      - container-2
+    depends_on:
+      - db
     # ...
 
   container-2:
@@ -50,6 +50,13 @@ services:
       # Mount the root folder that contains .git
       - .:/workspace:cached
     command: /bin/sh -c "while sleep 1000; do :; done"
+    depends_on:
+      - db
+    # ...
+
+  db:
+    image: postgres:14.1
+    restart: unless-stopped
     # ...
 ```
 
@@ -60,7 +67,7 @@ You can then set up `container1-src/.devcontainer.json` for Go development as fo
     "name": "Container 1",
     "dockerComposeFile": ["../docker-compose.yml"],
     "service": "container-1",
-    "shutdownAction": "none",
+    "runServices": ["container-1"],
     "extensions": ["golang.go"],
     // Open the sub-folder with the source code
     "workspaceFolder": "/workspace/container1-src",
@@ -74,13 +81,13 @@ Next, you can set up `container2-src/.devcontainer.json` for Node.js development
     "name": "Container 2",
     "dockerComposeFile": ["../docker-compose.yml"],
     "service": "container-2",
-    "shutdownAction": "none",
+    "runServices": ["container-2"],
     "extensions": ["dbaeumer.vscode-eslint"],
     "workspaceFolder": "/workspace/container2-src"
 }
 ```
 
-The `"shutdownAction":"none"` in the `devcontainer.json` files is optional, but will leave the containers running when VS Code closes -- which prevents you from accidentally shutting down both containers by closing one window.
+The both `"runServices": ["container-1"]` and `"runServices": ["container-2"]` in the respective `devcontainer.json` files are optional, but setting them ensures that VS Code will only build and manage these services for a given window. Assuming no dependencies exist in docker-compose.yml between the two containers, you are then also able to take advantage of the [features capability](/docs/remote/containers.md#dev-container-features-preview) in both `devcontainer.json` files.
 
 To connect to both:
 
